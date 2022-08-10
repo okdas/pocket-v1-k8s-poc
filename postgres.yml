@@ -1,0 +1,17 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: postgresql
+  namespace: kube-system
+spec:
+  repo: https://charts.bitnami.com/bitnami
+  chart: postgresql
+  targetNamespace: default
+  set:
+    image.repository: postgres
+    image.tag: "14"
+    image.registry: ""
+    auth.database: postgres
+    auth.username: postgres
+    auth.password: postgres
+    auth.postgresPassword: postgres
