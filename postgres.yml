@@ -8,6 +8,7 @@ spec:
   chart: postgresql
   targetNamespace: default
   set:
+    # If running on x86_64, comment out "image." overrides as bitnami image doesn't support arm cpus yet, but works fine on x86.
     image.repository: postgres
     image.tag: "14"
     image.registry: ""

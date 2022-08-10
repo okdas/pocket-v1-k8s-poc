@@ -16,12 +16,9 @@ spec:
     spec:
       containers:
         - name: pocket
-          image: poktnetwork/pocket-v1:pr-124-dev
+          image: poktnetwork/pocket-v1:main-dev
           command: ["/bin/bash", "-c", "--"]
-          args:
-            [
-              "go build -o /usr/local/bin/client /go/src/github.com/pokt-network/pocket/app/client/; while true; do sleep 30; done;",
-            ]
+          args: ["while true; do sleep 30; done;"]
           ports:
             - containerPort: 8221
               name: pre2p
@@ -29,6 +26,7 @@ spec:
               name: p2p
           volumeMounts:
             - name: genesis-volume
+              # This path is hardcoded in the code, so it must match.
               # https://github.com/pokt-network/pocket/blob/9e3374f511c8cd66beb33a5264b60b10a49d185e/app/client/main.go#L49
               mountPath: /go/src/github.com/pokt-network/pocket/build/config/genesis.json
               subPath: genesis.json

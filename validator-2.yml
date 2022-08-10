@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: pocket
-          image: poktnetwork/pocket-v1:pr-124-dev
+          image: poktnetwork/pocket-v1:main-dev
           args:
             - pocket
             - -config=/configs/config.json
@@ -31,6 +31,8 @@ spec:
             - name: genesis-volume
               mountPath: /genesis.json
               subPath: genesis.json
+            - name: v1-validator2-blockstore
+              mountPath: /blockstore
       volumes:
         - name: config-volume
           configMap:
@@ -38,6 +40,14 @@ spec:
         - name: genesis-volume
           configMap:
             name: v1-localnet-genesis
+  volumeClaimTemplates:
+    - metadata:
+        name: v1-validator2-blockstore
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -69,12 +79,10 @@ data:
         }
       },
       "private_key": "2d00000000000000000000000000000000000000000000000000000000000000ee37d8c8e9cf42a34cfa75ff1141e2bc0ff2f37483f064dce47cb4d5e69db1d4",
-      "pre2p": {
+      "p2p": {
         "consensus_port": 8221,
         "use_raintree": true,
-        "connection_type": "tcp"
-      },
-      "p2p": {
+        "connection_type": "tcp",
         "protocol": "tcp",
         "address": "0.0.0.0:8222",
         "peers": [
@@ -100,7 +108,12 @@ data:
       },
       "persistence": {
         "postgres_url": "postgres://postgres:postgres@postgresql:5432/postgres",
-        "schema": "validator2"
+        "schema": "validator2",
+        "block_store_path": "/blockstore"
       },
-      "utility": {}
+      "utility": {},
+      "telemetry": {
+        "address": "0.0.0.0:9000",
+        "endpoint": "/metrics"
+      }
     }
