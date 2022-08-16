@@ -19,11 +19,6 @@ spec:
           image: poktnetwork/pocket-v1:main-dev
           command: ["/bin/bash", "-c", "--"]
           args: ["while true; do sleep 30; done;"]
-          ports:
-            - containerPort: 8221
-              name: pre2p
-            - containerPort: 8222
-              name: p2p
           volumeMounts:
             - name: genesis-volume
               # This path is hardcoded in the code, so it must match.
