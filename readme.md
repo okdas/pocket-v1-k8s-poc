@@ -1,10 +1,17 @@
 # Pocket V1 PoC in K8s
 
+
+
+# How to bring the stack online.
+
+1. Must provision postgres database prior to starting the validators. Example for k3s (`HelmChart` object) [included](postgres.yml). `kubectl apply -f postgres.yml`
+2. Once postgres is up and running, the rest of the validators can be provisioned: `kubectl apply -f .`
+
 ## Validators
 
-Currently we only have one actor on the network - the validator.
+Currently we only have one actor on the network - validator.
 
-Included k8s manifests deploys 4 validators (as included in genesis).
+Included k8s manifests deploys 4 validators (as configured in genesis).
 
 ## Client
 

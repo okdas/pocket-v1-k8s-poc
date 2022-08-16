@@ -79,6 +79,7 @@ data:
         }
       },
       "private_key": "2e00000000000000000000000000000000000000000000000000000000000000264a0707979e0d6691f74b055429b5f318d39c2883bb509310b67424252e9ef2",
+      "enable_telemetry": true,
       "p2p": {
         "consensus_port": 8221,
         "use_raintree": true,
